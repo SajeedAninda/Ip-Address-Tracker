@@ -7,10 +7,16 @@ const IpTracker = () => {
     const [ipData, setIpData] = useState(null);
     const [error, setError] = useState(null);
 
-    const handleSearchValue = (e) => {
-        e.preventDefault();
-        setIpAddress(e.target.ip_address.value);
-    };
+    useEffect(() => {
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                setIpAddress(data.ip);
+            })
+            .catch(err => {
+                setError("Failed to fetch current IP address.");
+            });
+    }, []);
 
     useEffect(() => {
         if (ipAddress) {
@@ -32,6 +38,11 @@ const IpTracker = () => {
         }
     }, [ipAddress]);
 
+    const handleSearchValue = (e) => {
+        e.preventDefault();
+        setIpAddress(e.target.ip_address.value);
+    };
+
     return (
         <div>
             <div className='upperDiv h-[40vh] flex py-8 items-center flex-col'>
@@ -40,9 +51,17 @@ const IpTracker = () => {
                 </h1>
 
                 <form onSubmit={handleSearchValue} className='w-full flex justify-center items-center mt-4'>
-                    <input className='bg-white py-5 px-4 rounded-l-2xl w-[40%] h-[65px] focus:border-none' type="text" id="ip_address" name="ip_address" placeholder='Search for any IP Address or Domain' />
-                    <button className='text-white py-4 px-5 rounded-r-2xl bg-black h-[65px] hover:bg-[#2B2B2B]' type='submit'>
-                        <img className='w-[15px]' src={arrowIcon} alt="" />
+                    <input 
+                        className='bg-white py-5 px-4 rounded-l-2xl w-[40%] h-[65px] focus:border-none' 
+                        type="text" 
+                        id="ip_address" 
+                        name="ip_address" 
+                        placeholder='Search for any IP Address or Domain'
+                    />
+                    <button 
+                        className='text-white py-4 px-5 rounded-r-2xl bg-black h-[65px] hover:bg-[#2B2B2B]' 
+                        type='submit'>
+                        <img className='w-[15px]' src={arrowIcon} alt="arrow icon" />
                     </button>
                 </form>
 
