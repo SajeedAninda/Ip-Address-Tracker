@@ -46,26 +46,26 @@ const IpTracker = () => {
                     </button>
                 </form>
 
-                <div className='bg-white w-[80%] rounded-2xl py-16 px-8 mt-2 flex justify-between absolute top-44 shadow-2xl'>
+                <div className='bg-white w-[80%] rounded-2xl py-16 px-8 mt-2 grid grid-cols-4 absolute top-44 shadow-2xl h-[200px]'>
                     {error ? (
                         <div className='text-red-500'>
                             {error}
                         </div>
                     ) : ipData ? (
                         <>
-                            <div className='info-section'>
+                            <div className='info-section border-r-2 border-slate-200'>
                                 <p className='text-[13px] font-bold text-[#969696]'>IP ADDRESS</p>
                                 <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{ipData.ip}</h4>
                             </div>
 
-                            <div className='info-section pl-4'>
+                            <div className='info-section pl-4 border-r-2 border-slate-200'>
                                 <p className='text-[13px] font-bold text-[#969696]'>LOCATION</p>
                                 <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{`${ipData.location.city}, ${ipData.location.region}, ${ipData.location.country}`}</h4>
                             </div>
 
-                            <div className='info-section pl-4'>
+                            <div className='info-section pl-4 border-r-2 border-slate-200'>
                                 <p className='text-[13px] font-bold text-[#969696]'>TIMEZONE</p>
-                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{ipData.location.timezone}</h4>
+                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>UTC {ipData.location.timezone}</h4>
                             </div>
 
                             <div className='info-section pl-4'>
