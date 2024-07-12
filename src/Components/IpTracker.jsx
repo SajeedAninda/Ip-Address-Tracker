@@ -1,22 +1,42 @@
-import React from 'react';
-import "./ip.css"
-import arrowIcon from "../assets/icon-arrow.svg"
-
+import React, { useEffect, useState } from 'react';
+import "./ip.css";
+import arrowIcon from "../assets/icon-arrow.svg";
 
 const IpTracker = () => {
+    const [ipAddress, setIpAddress] = useState("");
+    const [ipData, setIpData] = useState(null);
+    const [error, setError] = useState(null);
 
-    let handleSearchValue = (e) => {
+    const handleSearchValue = (e) => {
         e.preventDefault();
+        setIpAddress(e.target.ip_address.value);
+    };
 
-        let ipAddress = e.target.ip_address.value;
-        console.log(ipAddress);
-    }
+    useEffect(() => {
+        if (ipAddress) {
+            fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_UxSYSWneFGFGUCK2Qxh1G4Onr7KwP&ipAddress=${ipAddress}`)
+                .then(response => response.json())
+                .then(json => {
+                    if (json.code) {
+                        setError(json.messages);
+                        setIpData(null);
+                    } else {
+                        setIpData(json);
+                        setError(null);
+                    }
+                })
+                .catch(err => {
+                    setError("Failed to fetch IP information.");
+                    setIpData(null);
+                });
+        }
+    }, [ipAddress]);
 
     return (
         <div>
             <div className='upperDiv h-[40vh] flex py-8 items-center flex-col'>
                 <h1 className='text-white font-bold text-[32px]'>
-                    Ip Address Tracker
+                    IP Address Tracker
                 </h1>
 
                 <form onSubmit={handleSearchValue} className='w-full flex justify-center items-center mt-4'>
@@ -27,30 +47,42 @@ const IpTracker = () => {
                 </form>
 
                 <div className='bg-white w-[80%] rounded-2xl py-16 px-8 mt-2 flex justify-between absolute top-44 shadow-2xl'>
-                    <div className='info-section'>
-                        <p className='text-[13px] font-bold text-[#969696]'>IP ADDRESS</p>
-                        <h4 className='text-[24px] font-bold text-[#2B2B2B]'>103.217.111.134</h4>
-                    </div>
+                    {error ? (
+                        <div className='text-red-500'>
+                            {error}
+                        </div>
+                    ) : ipData ? (
+                        <>
+                            <div className='info-section'>
+                                <p className='text-[13px] font-bold text-[#969696]'>IP ADDRESS</p>
+                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{ipData.ip}</h4>
+                            </div>
 
-                    <div className='info-section'>
-                        <p className='text-[13px] font-bold text-[#969696]'>LOCATION</p>
-                        <h4 className='text-[24px] font-bold text-[#2B2B2B]'>Bangladesh, Paltan 1212</h4>
-                    </div>
+                            <div className='info-section pl-4'>
+                                <p className='text-[13px] font-bold text-[#969696]'>LOCATION</p>
+                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{`${ipData.location.city}, ${ipData.location.region}, ${ipData.location.country}`}</h4>
+                            </div>
 
-                    <div className='info-section'>
-                        <p className='text-[13px] font-bold text-[#969696]'>TIMEZONE</p>
-                        <h4 className='text-[24px] font-bold text-[#2B2B2B]'>UTC 6</h4>
-                    </div>
+                            <div className='info-section pl-4'>
+                                <p className='text-[13px] font-bold text-[#969696]'>TIMEZONE</p>
+                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{ipData.location.timezone}</h4>
+                            </div>
 
-                    <div className='info-section'>
-                        <p className='text-[13px] font-bold text-[#969696]'>ISP</p>
-                        <h4 className='text-[24px] font-bold text-[#2B2B2B]'>Dot Internet</h4>
-                    </div>
+                            <div className='info-section pl-4'>
+                                <p className='text-[13px] font-bold text-[#969696]'>ISP</p>
+                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{ipData.isp}</h4>
+                            </div>
+                        </>
+                    ) : (
+                        <div className='text-gray-500'>
+                            Enter an IP address to get information.
+                        </div>
+                    )}
                 </div>
             </div>
 
             <div className='h-[100vh] '>
-
+                {/* Other content */}
             </div>
         </div>
     );
