@@ -4,18 +4,3 @@
     background-repeat: no-repeat;
     background-position: center;
 }
-/* 
-.info-section {
-    position: relative;
-    padding-right: 56px;
-}
-
-.info-section:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 20%;
-    right: 0;
-    width: 1px;
-    height: 100%;
-    background-color: #969696;
-} */
