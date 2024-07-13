@@ -64,7 +64,7 @@ const IpTracker = () => {
 
                 <form onSubmit={handleSearchValue} className='w-full flex justify-center items-center mt-4'>
                     <input
-                        className='bg-white py-5 px-4 rounded-l-2xl w-[40%] h-[65px] focus:border-none'
+                        className='bg-white py-5 px-4 rounded-l-2xl w-[80%] md:[w-[60%] lg:w-[40%] h-[65px] focus:border-none'
                         type="text"
                         id="ip_address"
                         name="ip_address"
