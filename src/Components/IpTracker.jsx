@@ -77,31 +77,31 @@ const IpTracker = () => {
                     </button>
                 </form>
 
-                <div className='infoDiv bg-white w-[80%] rounded-2xl py-16 px-8 mt-2 grid grid-cols-4 absolute top-44 shadow-2xl h-[200px] z-10'>
+                <div className='infoDiv bg-white w-[80%] rounded-2xl py-4 lg:py-16 px-8 mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 absolute top-44 shadow-2xl h-fit lg:h-[200px] z-10'>
                     {error ? (
                         <div className='text-red-500'>
                             {error}
                         </div>
                     ) : ipData ? (
                         <>
-                            <div className='info-section border-r-2 border-slate-200'>
-                                <p className='text-[13px] font-bold text-[#969696]'>IP ADDRESS</p>
-                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{ipData.ip}</h4>
+                            <div className='info-section border-none lg:border-r-2 border-slate-200 pl-4 lg:pl-0'>
+                                <p className='text-[8px] lg:text-[13px] font-bold text-[#969696]'>IP ADDRESS</p>
+                                <h4 className='text-[12px] lg:text-[24px] font-bold text-[#2B2B2B]'>{ipData.ip}</h4>
                             </div>
 
-                            <div className='info-section pl-4 border-r-2 border-slate-200'>
-                                <p className='text-[13px] font-bold text-[#969696]'>LOCATION</p>
-                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{`${ipData.location.city}, ${ipData.location.region}, ${ipData.location.country}`}</h4>
+                            <div className='info-section pl-4 border-none lg:border-r-2 border-slate-200'>
+                                <p className='text-[8px] lg:text-[13px] font-bold text-[#969696]'>LOCATION</p>
+                                <h4 className='text-[12px] lg:text-[24px] font-bold text-[#2B2B2B]'>{`${ipData.location.city}, ${ipData.location.region}, ${ipData.location.country}`}</h4>
                             </div>
 
-                            <div className='info-section pl-4 border-r-2 border-slate-200'>
-                                <p className='text-[13px] font-bold text-[#969696]'>TIMEZONE</p>
-                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>UTC {ipData.location.timezone}</h4>
+                            <div className='info-section pl-4 border-none lg:border-r-2 border-slate-200'>
+                                <p className='text-[8px] lg:text-[13px] font-bold text-[#969696]'>TIMEZONE</p>
+                                <h4 className='text-[12px] lg:text-[24px] font-bold text-[#2B2B2B]'>UTC {ipData.location.timezone}</h4>
                             </div>
 
                             <div className='info-section pl-4'>
-                                <p className='text-[13px] font-bold text-[#969696]'>ISP</p>
-                                <h4 className='text-[24px] font-bold text-[#2B2B2B]'>{ipData.isp}</h4>
+                                <p className='text-[8px] lg:text-[13px] font-bold text-[#969696]'>ISP</p>
+                                <h4 className='text-[12px] lg:text-[24px] font-bold text-[#2B2B2B]'>{ipData.isp}</h4>
                             </div>
                         </>
                     ) : (
